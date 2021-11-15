@@ -19,7 +19,6 @@ public class Greedy3_11047 {
         int n = Integer.parseInt(st.nextToken());
         int k = Integer.parseInt(st.nextToken());
 
-
         int[] moneys = new int[n];
         for(int i=0; i<n; i++) {
             moneys[i] = Integer.parseInt(br.readLine());
