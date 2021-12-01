@@ -1,0 +1,91 @@
+package baekjoon.dfs;
+import java.io.BufferedReader;
+        import java.io.BufferedWriter;
+        import java.io.IOException;
+        import java.io.InputStreamReader;
+        import java.io.OutputStreamWriter;
+        import java.util.*;
+
+public class Dfs1_2667 {
+
+    static int[][] map;
+    static boolean[][] visited;
+
+    static int n;
+    static int[] dx = {-1, 1, 0, 0};
+    static int[] dy = {0, 0, -1, 1}; //위, 아래, 왼, 오른
+    static int count;
+    static List<Integer> list = new LinkedList<>();
+
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+
+        n = Integer.parseInt(br.readLine());
+        map = new int[n+1][n+1];
+        visited = new boolean[n+1][n+1];
+
+        for(int i=1; i<n+1; i++) {
+            String[] str = br.readLine().split("");
+
+            for(int j=1; j<n+1; j++) {
+                map[i][j] = Integer.parseInt(str[j-1]);
+            }
+        }
+
+        int totalCount=0;
+        for(int i=1; i<n+1; i++) {
+            for(int j=1; j<n+1; j++) {
+                if(map[i][j] != 0 && visited[i][j] == false) {
+                    Point point = new Point(i, j);
+                    count =0;
+                    dfs(point);
+                    list.add(count);
+                    totalCount++;
+                }
+            }
+        }
+
+        Collections.sort(list);
+
+        bw.write(totalCount + "\n");
+        for(int i=0; i<list.size(); i++) {
+            bw.write(list.get(i) + "\n");
+        }
+        bw.flush();
+        bw.close();
+
+    }
+
+
+    static void dfs(Point point) {
+
+        visited[point.x][point.y] = true;
+        count++;
+
+        for(int i=0; i<4 ; i++) {
+            int nx = point.x + dx[i];
+            int ny = point.y + dy[i];
+
+            if(nx>0 && nx <n+1 && ny>0 && ny<n+1) {
+                if(map[nx][ny] == 1 && visited[nx][ny] == false) {
+                    Point nPoint = new Point(nx, ny);
+                    dfs(nPoint);
+                }
+
+            }
+        }
+
+    }
+
+    static class Point{
+        private int x;
+        private int y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+}
