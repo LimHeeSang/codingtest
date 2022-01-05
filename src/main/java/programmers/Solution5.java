@@ -2,6 +2,7 @@ package programmers;
 
 import java.util.*;
 
+//level1-5 크레인 인형뽑기 게임
 class Solution5 {
     public int solution(int[][] board, int[] moves) {
         int answer = 0;
@@ -36,16 +37,14 @@ class Solution5 {
     public int checkBox(List box){
 
         int count = 0;
-        while(true){
-            for(int i=0; i<box.size()-1; i++){
-                if(box.get(i) == box.get(i+1)){
-                    box.remove(i);
-                    box.remove(i);
-                    count += 2;
-                    continue;
-                }
+
+        for(int i=0; i<box.size()-1; i++){
+            if(box.get(i) == box.get(i+1)){
+                box.remove(i);
+                box.remove(i);
+                count += 2;
+                continue;
             }
-            break;
         }
 
         return count;
