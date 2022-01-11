@@ -37,13 +37,8 @@ class Solution12 {
     public int check(int[] person, int[] answers){
         int count=0;
 
-        int index = 0;
-        for(int answer : answers){
-            if(index> person.length-1){
-                index=0;
-            }
-
-            if(answer == person[index++]){
+        for(int i=0; i<answers.length; i++){
+            if(answers[i] == person[i%person.length]){
                 count++;
             }
         }
