@@ -4,49 +4,32 @@ import java.util.*;
 //level1-13 체육복
 class Solution13 {
     public int solution(int n, int[] lost, int[] reserve) {
-        int answer = 0;
+        int answer = n;
 
-        int[] counts = new int[n+1];
-        Arrays.fill(counts, 1);
+        int[] people = new int[n+1];
+        Arrays.fill(people, 1);
 
-        for(int num: reserve){
-            counts[num]++;
+        for(int l : lost){
+            people[l]--;
+        }
+        for(int r : reserve){
+            people[r]++;
         }
 
-        for(int num : lost){
-            counts[num]--;
-        }
-
-        for(int i=1; i<counts.length; i++){
-            if(counts[i] == 0){
-                if(i==1){
-                    if(counts[i+1] >= 2){
-                        counts[i]++;
-                        counts[i+1]--;
-                    }
-                }else if(i==counts.length-1){
-                    if(counts[i-1] >= 2){
-                        counts[i]++;
-                        counts[i-1]--;
-                    }
+        for(int i=1; i<people.length; i++){
+            if(people[i] == 0){
+                if(i-1>=1 && people[i-1] >=2){
+                    people[i-1]--;
+                    people[i]++;
+                }else if(i+1<people.length && people[i+1] >=2){
+                    people[i+1]--;
+                    people[i]++;
                 }else{
-                    if(counts[i-1] >= 2){
-                        counts[i]++;
-                        counts[i-1]--;
-                        continue;
-                    }
-                    if(counts[i+1] >= 2){
-                        counts[i]++;
-                        counts[i+1]--;
-                    }
+                    answer--;
                 }
-
             }
         }
 
-        for(int i=1; i<counts.length; i++){
-            if(counts[i] != 0) answer++;
-        }
 
         return answer;
     }
