@@ -13,11 +13,7 @@ class Solution14 {
             set.add(n);
         }
 
-        if(set.size()>=number){
-            answer = number;
-        }else{
-            answer = set.size();
-        }
+        answer = set.size() >= number ? number:set.size();
 
         return answer;
     }
