@@ -11,16 +11,8 @@ class Solution30 {
                 char ch1 = o1.charAt(n);
                 char ch2 = o2.charAt(n);
 
-                if (ch1 > ch2) return 1;
-                else if(ch1 < ch2) return -1;
-                else{
-                    for(int i=0; i<o1.length(); i++){
-                        if(o1.charAt(i) > o2.charAt(i)) return 1;
-                        else if(o1.charAt(i) < o2.charAt(i)) return -1;
-                    }
-
-                }
-                return 0;
+                if(ch1 == ch2) return o1.compareTo(o2);
+                else return ch1-ch2;
             }
         });
 
