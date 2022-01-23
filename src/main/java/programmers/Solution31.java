@@ -15,7 +15,6 @@ class Solution31 {
             if(c == 'y') countY++;
         }
 
-        if(countP == countY) return true;
-        else return false;
+        return countP==countY;
     }
 }
