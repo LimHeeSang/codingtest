@@ -5,11 +5,13 @@ class Solution42 {
     public int[] solution(long n) {
         int[] answer;
 
-        String[] str = String.valueOf(n).split("");
+        String s = String.valueOf(n);
+        StringBuilder sb = new StringBuilder(s);
+        sb = sb.reverse();
 
-        answer = new int[str.length];
-        for(int i = 0; i<str.length; i++){
-            answer[i] = Integer.parseInt(str[str.length-i-1]);
+        answer = new int[sb.length()];
+        for(int i=0; i<sb.length(); i++){
+            answer[i] = Integer.parseInt(String.valueOf(sb.charAt(i)));
         }
 
         return answer;
