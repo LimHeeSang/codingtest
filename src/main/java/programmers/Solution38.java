@@ -10,22 +10,14 @@ class Solution38 {
 
             //대문자인 경우
             if(ch >= 'A' && ch <= 'Z'){
-                ch += n;
-
-                if(ch > 'Z'){
-                    ch = (char)('A' + (ch - 'Z'-1));
-                }
+                ch = (char)('A' + (ch + n - 'A') % 26 );
 
             }else if(ch >= 'a' && ch <= 'z'){   //소문자인 경우
-                ch += n;
-
-                if(ch > 'z'){
-                    ch = (char)('a' + (ch - 'z'-1));
-                }
+                ch = (char)('a' + (ch + n - 'a') % 26 );
 
             }
 
-            answer += String.valueOf(ch);
+            answer += ch;
         }
 
         return answer;
