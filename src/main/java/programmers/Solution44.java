@@ -3,19 +3,11 @@ package programmers;
 //level1-44 정수 제곱근 판별
 class Solution44 {
     public long solution(long n) {
-        long answer = 0;
 
-        for(long i = 1; i <= Math.sqrt(n); i++){
-            if(i*i == n){
-                answer = i;
-                break;
-            }
+        if(Math.pow((int)Math.sqrt(n), 2) == n){
+            return (long)Math.pow(Math.sqrt(n)+1, 2);
         }
 
-        if(answer == 0) return -1;
-
-        answer = (long)Math.pow(answer+1, 2);
-
-        return answer;
+        return -1;
     }
 }
