@@ -2,7 +2,7 @@ package programmers.hash;
 import java.util.*;
 
 //hash2 전화번호 목록
-class hash2 {
+class Hash2 {
     public boolean solution(String[] pb) {
         boolean answer = true;
 

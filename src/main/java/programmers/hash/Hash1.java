@@ -2,7 +2,7 @@ package programmers.hash;
 import java.util.*;
 
 //hash1 완주하지 못한 선수
-class hash1 {
+class Hash1 {
     public String solution(String[] participant, String[] completion) {
         String answer = "";
 
