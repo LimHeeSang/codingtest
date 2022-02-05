@@ -1,120 +1,95 @@
 package note.bruteforce;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Perm_Comb {
 
-    static int max = 0;
-    static int num = 0;
+    static boolean[] visited;
+    static List<Integer> list = new ArrayList<>();
+    static int count = 0;
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+    public static void main(String[] args) {
+        //문자열 str 요소중 r개의 순열 or 중복순열 or 조합 or 중복조합 원소들을 모두 List에 담기
+        String str = "12345";
+        visited = new boolean[str.length()];
 
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-
-        int[] arr = new int[n];
-        boolean[] visited = new boolean[n];
-        st = new StringTokenizer(br.readLine());
-
-        for(int i=0; i<n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
-        }
-
-        comb(arr, visited, 0, n, 3);
-
-        bw.write(String.valueOf(max));
-        bw.flush();
-        bw.close();
+        dupComb(str, "",0,3);
+        System.out.println(list);
+        System.out.println("count : " + count);
     }
 
-
     //순열
-    static void perm(int[] arr, boolean[] visited, int[] output,  int depth, int n, int r) {
-        if (depth == r) {
-            for(int i =0 ; i < r; i++) {
-                System.out.print(output[i]+" ");
-            }
-            System.out.println();
+    static void perm(String str, String temp, int r){
+        if (r == 0) {
+            int num = Integer.parseInt(temp);
+            list.add(num);
+            count++;
             return;
         }
-        for (int i=0; i<n; i++) {
-            if (visited[i] != true) {
+
+        for (int i = 0; i < str.length(); i++) {
+            if(!visited[i]){
+                temp += str.charAt(i);
                 visited[i] = true;
-                output[depth] = arr[i];
-                perm(arr, visited, output,depth + 1, n, r);
-                visited[i] = false;;
+                perm(str, temp, r - 1);
+                visited[i] = false;
+                temp = temp.substring(0, temp.length() - 1);
             }
         }
     }
 
     //중복순열
-    static void dupPerm(int[] arr, boolean[] visited, int[] output,  int depth, int n, int r) {
-        if (depth == r) {
-            for(int i =0 ; i < r; i++) {
-                System.out.print(output[i]+" ");
-            }
-            num++;
-            System.out.println(num);
+    static void dupPerm(String str, String temp, int r) {
+        if (r == 0) {
+            int num = Integer.parseInt(temp);
+            list.add(num);
+            count++;
             return;
         }
-        for (int i=0; i<n; i++) {
-            //if (visited[i] != true) {
-            //visited[i] = true;
-            output[depth] = arr[i];
-            dupPerm(arr, visited, output,depth + 1, n, r);
-            //visited[i] = false;;
-            //}
+
+        for (int i = 0; i < str.length(); i++) {
+            temp += str.charAt(i);
+            dupPerm(str, temp, r - 1);
+            temp = temp.substring(0, temp.length() - 1);
         }
     }
 
-
     //조합
-    static void comb(int[] arr, boolean[] visited, int start, int n, int r) {
-
+    static void comb(String str, String temp, int start, int r) {
         if (r == 0) {
-
-            for(int i =0 ; i < visited.length; i++) {
-                if(visited[i]) {
-                    System.out.print(arr[i]+" ");
-                }
-            }
-
-            num++;
-            System.out.println("-"+num+"번째경우");
+            int num = Integer.parseInt(temp);
+            list.add(num);
+            count++;
             return;
         }
 
-        for (int i=start; i<n; i++) {
-            visited[i] = true;
-            comb(arr, visited, i + 1, n, r-1);
-            visited[i] = false;
+        for(int i=start; i<str.length(); i++){
+            if(!visited[i]){
+                temp += str.charAt(i);
+                visited[i] = true;
+                comb(str, temp, i + 1, r - 1);
+                visited[i] = false;
+                temp = temp.substring(0, temp.length() - 1);
+            }
         }
-
     }
 
     //중복조합
-    static void dupComb(int[] arr, boolean[] visited, int[] output, int start, int n, int r,int cnt) {
-        if (cnt == r) {
-            for(int i =0 ; i < cnt; i++) {
-                //if(visited[i]) {
-                System.out.print(output[i]+" ");
-                //	}
-            }
-            num++;
-            System.out.println("-"+num+"번째경우");
+    static void dupComb(String str, String temp, int start, int r) {
+        if (r == 0) {
+            int num = Integer.parseInt(temp);
+            list.add(num);
+            count++;
             return;
         }
-        for (int i=start-1; i<n; i++) {
-            //   if (visited[i] != true) {
-            //visited[i] = true;
-            output[cnt] = arr[i];
-            dupComb(arr, visited, output,i + 1, n, r,cnt+1);
-            //visited[i] = false;;
-            //  }
+
+        for(int i=start; i<str.length(); i++){
+            temp += str.charAt(i);
+            dupComb(str, temp, i, r - 1);
+            temp = temp.substring(0, temp.length() - 1);
         }
     }
 }
