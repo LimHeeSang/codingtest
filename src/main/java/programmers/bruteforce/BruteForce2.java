@@ -4,27 +4,18 @@ package programmers.bruteforce;
 class BruteForce2 {
     public int[] solution(int brown, int yellow) {
         int[] answer = new int[2];
+
+        int area = brown + yellow;
         int width = 0;
         int height = 0;
 
-        int tempB = 0;
-        int tempY = 0;
+        for(int i = 3; i<=Math.sqrt(area); i++){
+            if(area % i != 0) continue;
+            height = i;
+            width = area/height;
 
-        for(int i=1; i<=yellow; i++){
-            tempY = yellow;
-            if(tempY%i != 0) continue;
-            tempY /= i;
-
-            tempB = (tempY * 2) + 4 + (i * 2);
-
-            width = tempY + 2;
-            height = i + 2;
-
-            if(tempB == brown && width >= height){
-                break;
-            }
+            if(width >= height && (width - 2) * (height - 2) == yellow) break;
         }
-
         answer[0] = width;
         answer[1] = height;
 
