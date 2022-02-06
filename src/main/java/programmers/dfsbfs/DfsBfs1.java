@@ -2,29 +2,20 @@ package programmers.dfsbfs;
 
 //dfsbfs1 타켓 넘버
 class DfsBfs1 {
-    static int count = 0;
-
     public int solution(int[] numbers, int target) {
         int answer = 0;
 
-        dfs(numbers, 0, 0, target);
-        answer = count;
+        answer = dfs(numbers, 0, 0, target);
 
         return answer;
     }
 
-    public void dfs(int[] numbers, int idx, int temp, int target){
+    public int dfs(int[] numbers, int idx, int temp, int target){
         if(idx == numbers.length){
-            if(target == temp) count++;
-            return;
+            if(target == temp) return 1;
+            return 0;
         }
 
-
-        temp += numbers[idx];
-        dfs(numbers, idx+1, temp, target);
-
-        temp -= numbers[idx];
-        temp += numbers[idx]*(-1);
-        dfs(numbers, idx+1, temp, target);
+        return dfs(numbers, idx+1, temp + numbers[idx], target) + dfs(numbers, idx+1, temp + numbers[idx]*(-1), target);
     }
 }
