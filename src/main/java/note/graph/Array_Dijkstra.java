@@ -8,7 +8,7 @@ public class Array_Dijkstra {
     static final int INF = 100000;
     static int[][] graph;
     static boolean[] visited = new boolean[n];
-    static int[] d = new int[n];
+    static int[] dist = new int[n];
 
     public static void main(String[] args) {
 
@@ -21,24 +21,21 @@ public class Array_Dijkstra {
                 {INF, INF, 5, INF, 2, 0}
         };
 
-        Arrays.fill(d, INF);
+        Arrays.fill(dist, INF);
 
         dijkstra(0);
-        System.out.println(Arrays.toString(d));
+        System.out.println(Arrays.toString(dist));
     }
 
     public static void dijkstra(int start){
-        for (int i = 0; i < n; i++) {
-            d[i] = graph[start][i];
-        }
+        dist[start] = 0;
 
-        visited[start] = true;
-        for (int i = 0; i < n - 2; i++) {
+        for (int i = 0; i < n; i++) {
             int current = findSmallNode();
             visited[current] = true;
             for (int j = 0; j < n; j++) {
-                if(!visited[j] && d[current] + graph[current][j] < d[j]){
-                    d[j] = d[current] + graph[current][j];
+                if(!visited[j] && dist[current] + graph[current][j] < dist[j]){
+                    dist[j] = dist[current] + graph[current][j];
                 }
             }
         }
@@ -49,8 +46,8 @@ public class Array_Dijkstra {
         int min = INF;
         int index = 0;
         for (int i = 0; i < n; i++) {
-            if (d[i] < min && !visited[i]) {
-                min = d[i];
+            if (dist[i] < min && !visited[i]) {
+                min = dist[i];
                 index = i;
             }
         }
