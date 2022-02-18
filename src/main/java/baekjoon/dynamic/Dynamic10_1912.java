@@ -10,28 +10,19 @@ public class Dynamic10_1912 {
 
         int n = Integer.parseInt(br.readLine());
         int[] arr = new int[n];
-        int[][] dp = new int[n][n];
+        int[] dp = new int[n];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for (int i = 0; i < n; i++) {
-            dp[i][i] = arr[i];
-        }
+        dp[0] = arr[0];
+        int max = dp[0];
+        for (int i = 1; i < n; i++) {
+            dp[i] = Math.max(dp[i - 1] + arr[i], arr[i]);
 
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                dp[i][j] = dp[i][j - 1] + arr[j];
-            }
-        }
-
-        int max = 0;
-        for (int i = 0; i < n; i++) {
-            for (int j = i + 1; j < n; j++) {
-                if(max < dp[i][j]) max = dp[i][j];
-            }
+            max = Math.max(max, dp[i]);
         }
 
         bw.write(String.valueOf(max));
