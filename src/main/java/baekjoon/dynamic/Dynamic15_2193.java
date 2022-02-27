@@ -8,7 +8,7 @@ public class Dynamic15_2193 {
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         int n = Integer.parseInt(br.readLine());
-        int[][] dp = new int[2][n];
+        long[][] dp = new long[2][n];
 
         if (n >= 1) {
             dp[0][0] = 0;
@@ -24,7 +24,7 @@ public class Dynamic15_2193 {
             dp[1][i] = dp[0][i-1];
         }
 
-        int answer = dp[0][n - 1] + dp[1][n - 1];
+        long answer = dp[0][n - 1] + dp[1][n - 1];
         bw.write(String.valueOf(answer));
         bw.flush();
         bw.close();
