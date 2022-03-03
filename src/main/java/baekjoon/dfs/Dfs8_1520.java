@@ -10,6 +10,7 @@ public class Dfs8_1520 {
 
     static int[][] graph;
     static int[][] dp;
+    static boolean[][] visited;
 
     static int[] dx = {0, 0, -1, 1};
     static int[] dy = {-1, 1, 0, 0};
@@ -24,12 +25,12 @@ public class Dfs8_1520 {
 
         graph = new int[m][n];
         dp = new int[m][n];
+        visited = new boolean[m][n];
 
         for (int i = 0; i < m; i++) {
             st = new StringTokenizer(br.readLine());
             for (int j = 0; j < n; j++) {
                 graph[i][j] = Integer.parseInt(st.nextToken());
-                dp[i][j] = -1;
             }
         }
 
@@ -44,7 +45,7 @@ public class Dfs8_1520 {
             return 1;
         }
 
-        dp[point.x][point.y] = 0;
+        visited[point.x][point.y] = true;
 
         for (int i = 0; i < 4; i++) {
             int mx = point.x + dx[i];
@@ -52,10 +53,10 @@ public class Dfs8_1520 {
 
             if(mx < 0 || mx >= m || my < 0 || my >= n) continue;
             if(graph[point.x][point.y] > graph[mx][my]){
-                if (dp[mx][my] >= 0) {
-                    dp[point.x][point.y] += dp[mx][my];
-                } else {
+                if (!visited[mx][my]) {
                     dp[point.x][point.y] += dfs(new Point(mx, my));
+                }else{
+                    dp[point.x][point.y] += dp[mx][my];
                 }
             }
         }
