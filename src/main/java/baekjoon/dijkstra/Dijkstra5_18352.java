@@ -11,7 +11,7 @@ public class Dijkstra5_18352 {
     static int n;
     static int m;
 
-    static List<List<Node>> graph = new ArrayList<>();
+    static List<List<Integer>> graph = new ArrayList<>();
     static boolean[] visited;
     static int[] dist;
 
@@ -32,54 +32,48 @@ public class Dijkstra5_18352 {
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
-            graph.get(a).add(new Node(b, 1));
+            graph.get(a).add(b);
         }
 
         visited = new boolean[n + 1];
         dist = new int[n + 1];
         Arrays.fill(dist, INF);
 
-        dijkstra(new Node(start, 0));
+        dijkstra(start);
+
         boolean check = false;
         for (int i = 1; i < n + 1; i++) {
-            if(dist[i] == k) {
+            if (dist[i] == k) {
                 check = true;
                 System.out.println(i);
             }
         }
-        if(!check) System.out.println(-1);
+        if (!check) {
+            System.out.println(-1);
+        }
 
     }
 
-    static void dijkstra(Node node) {
-        PriorityQueue<Node> q = new PriorityQueue<>(new Comparator<>(){
-            public int compare(Node n1, Node n2) {
-                return n1.cost - n2.cost;
-            }
-        });
-        q.offer(node);
-        dist[node.node] = 0;
+    static void dijkstra(int start) {
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(start);
+        dist[start] = 0;
+        visited[start] = true;
 
         while (!q.isEmpty()) {
-            Node curNode = q.poll();
+            int curNode = q.poll();
 
-            if(dist[curNode.node] < curNode.cost) continue;
-            for (Node nxtNode : graph.get(curNode.node)) {
-                if (dist[nxtNode.node] > curNode.cost + nxtNode.cost) {
-                    dist[nxtNode.node] = curNode.cost + nxtNode.cost;
-                    q.offer(new Node(nxtNode.node, dist[nxtNode.node]));
+            for (int nxtNode : graph.get(curNode)) {
+                if(visited[nxtNode]) continue;
+                if(dist[nxtNode] > dist[curNode] + 1){
+                    dist[nxtNode] = dist[curNode] + 1;
+                    q.offer(nxtNode);
+                    visited[nxtNode] = true;
                 }
             }
+
         }
+
     }
 
-    static class Node{
-        int node;
-        int cost;
-
-        public Node(int node, int cost) {
-            this.node = node;
-            this.cost = cost;
-        }
-    }
 }
