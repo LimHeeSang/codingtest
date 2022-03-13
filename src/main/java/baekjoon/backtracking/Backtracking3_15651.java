@@ -1,19 +1,19 @@
 package baekjoon.backtracking;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.StringTokenizer;
 
 public class Backtracking3_15651 {
     static int n;
     static int m;
+    static BufferedWriter bw;
 
     static int[] arr;
     static int[] result;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         n = Integer.parseInt(st.nextToken());
@@ -26,14 +26,16 @@ public class Backtracking3_15651 {
         }
 
         dupPerm(m, 0);
+        bw.flush();
+        bw.close();
     }
 
-    static void dupPerm(int m, int idx) {
+    static void dupPerm(int m, int idx) throws IOException {
         if (m == 0) {
             for (int i = 0; i < result.length; i++) {
-                System.out.print(result[i] + " ");
+                bw.write(result[i] + " ");
             }
-            System.out.println();
+            bw.write("\n");
             return;
         }
 
