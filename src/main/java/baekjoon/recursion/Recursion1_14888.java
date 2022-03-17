@@ -1,7 +1,6 @@
 package baekjoon.recursion;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Recursion1_14888 {
@@ -48,20 +47,14 @@ public class Recursion1_14888 {
         for (int i = 0; i < 4; i++) {
             if (operator[i] == 0) continue;
 
+            operator[i] -= 1;
             if (i == 0) {
-                operator[0] -= 1;
                 dfs(result + arr[idx], idx + 1);
-                operator[0] += 1;
             } else if (i == 1) {
-                operator[1] -= 1;
                 dfs(result - arr[idx], idx + 1);
-                operator[1] += 1;
             } else if (i == 2) {
-                operator[2] -= 1;
                 dfs(result * arr[idx], idx + 1);
-                operator[2] += 1;
             } else if (i == 3) {
-                operator[3] -= 1;
                 if (result < 0) {
                     result *= (-1);
                     result /= arr[idx];
@@ -70,8 +63,8 @@ public class Recursion1_14888 {
                     result /= arr[idx];
                 }
                 dfs(result, idx + 1);
-                operator[3] += 1;
             }
+            operator[i] += 1;
         }
     }
 }
