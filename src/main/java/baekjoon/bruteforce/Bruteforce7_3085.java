@@ -38,11 +38,6 @@ public class Bruteforce7_3085 {
             }
         }
 
-        //다르면 바꾸고
-        //최대값 찾고
-        //원래대로 돌려놓고
-        // 반복
-
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 changePosition(new Point(i, j));
@@ -73,12 +68,14 @@ public class Bruteforce7_3085 {
         int preValue = 0;
         int count = 1;
         for (int i = 0; i < n; i++) {
+            preValue = 0;
             for (int j = 0; j < n; j++) {
                 if (map[i][j] == preValue) {
                     count++;
-                } else {
-                    count = 1;
+                }
+                if (map[i][j] != preValue || j == n - 1) {
                     answer = Math.max(answer, count);
+                    count = 1;
                 }
                 preValue = map[i][j];
             }
@@ -87,12 +84,14 @@ public class Bruteforce7_3085 {
         preValue = 0;
         count = 1;
         for (int i = 0; i < n; i++) {
+            preValue = 0;
             for (int j = 0; j < n; j++) {
                 if (map[j][i] == preValue) {
                     count++;
-                } else {
-                    count = 1;
+                }
+                if (map[j][i] != preValue || j == n - 1) {
                     answer = Math.max(answer, count);
+                    count = 1;
                 }
                 preValue = map[j][i];
             }
