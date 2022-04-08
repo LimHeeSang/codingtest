@@ -3,48 +3,32 @@ package baekjoon.backtracking;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Backtracking13_2294 {
-    static int answer = Integer.MAX_VALUE;
-    static int n;
-    static int k;
-    static int[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(st.nextToken());
+        int n = Integer.parseInt(st.nextToken());
+        int k = Integer.parseInt(st.nextToken());
 
-        arr = new int[n];
+        int[] arr = new int[n];
+        int[] dp = new int[k + 1];
         for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(br.readLine());
         }
 
-        dfs(0, 0);
-
-        if (answer == Integer.MAX_VALUE) {
-            answer = -1;
-        }
-        System.out.println(answer);
-    }
-
-    static void dfs(int count, int sum) {
-        if (count >= answer) {
-            return;
-        }
-
-        if (sum >= k) {
-            if (sum == k) {
-                answer = Math.min(answer, count);
-            }
-            return;
-        }
-
+        Arrays.fill(dp, 100001);
+        dp[0] = 0;
         for (int i = 0; i < n; i++) {
-            dfs(count + 1, sum + arr[i]);
+            for (int j = arr[i]; j < k + 1; j++) {
+                dp[j] = Math.min(dp[j], dp[j - arr[i]] + 1);
+            }
         }
+
+        System.out.println(dp[k] == 100001 ? -1 : dp[k]);
     }
 }
