@@ -8,13 +8,6 @@ import java.util.List;
  */
 public class BruteForce5 {
 
-    public static void main(String[] args) {
-        String word = "EIO";
-        BruteForce5 bruteForce5 = new BruteForce5();
-        int solution = bruteForce5.solution(word);
-        System.out.println(solution);
-    }
-
     List<String> list = new ArrayList<>();
     String[] words = {"A", "E", "I", "O", "U"};
 
