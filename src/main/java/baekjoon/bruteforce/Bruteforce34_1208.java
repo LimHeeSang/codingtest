@@ -19,8 +19,8 @@ public class Bruteforce34_1208 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader((System.in)));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int s = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        s = Integer.parseInt(st.nextToken());
         arr = new int[n];
 
         String[] split = br.readLine().split(" ");
@@ -33,7 +33,7 @@ public class Bruteforce34_1208 {
         Collections.sort(list1);
         Collections.sort(list2);
 
-        int answer = twoPointer();
+        long answer = twoPointer();
         System.out.println(s == 0 ? answer - 1 : answer);
     }
 
@@ -47,20 +47,34 @@ public class Bruteforce34_1208 {
         dfs(depth + 1, end, sum + arr[depth], list);
     }
 
-    static int twoPointer() {
+    static long twoPointer() {
         int left = 0;
         int right = list2.size() - 1;
-        int count = 0;
+        long count = 0;
 
         while (left < list1.size() && right >= 0) {
             int sum = list1.get(left) + list2.get(right);
 
             if (sum == s) {
-                count++;
+                int leftValue = list1.get(left);
+                int count1 = 0;
+                while (left < list1.size() && list1.get(left) == leftValue) {
+                    left++;
+                    count1++;
+                }
+
+                int rightValue = list2.get(right);
+                int count2 = 0;
+                while (right >= 0 && list2.get(right) == rightValue) {
+                    right--;
+                    count2++;
+                }
+                count += (long) count1 * count2;
+
             } else if (sum > s) {
-                left++;
+                right--;
             } else {    // sum < s
-                right++;
+                left++;
             }
         }
         return count;
