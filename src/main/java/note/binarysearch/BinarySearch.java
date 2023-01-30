@@ -23,7 +23,7 @@ public class BinarySearch {
     // 배열의 원소 중 target 의 첫번째 원소 인덱스 반환
     static int lowerBound(int[] arr, int target) {
         int left = 0;
-        int right = arr.length - 1;
+        int right = arr.length;
         int mid;
 
         while (left < right) {
@@ -41,7 +41,7 @@ public class BinarySearch {
     // 배열의 원소 중 target 보다 큰 첫번째 원소를 반환
     static int upperBound(int[] arr, int target) {
         int left = 0;
-        int right = arr.length - 1;
+        int right = arr.length;
         int mid;
 
         while (left < right) {
