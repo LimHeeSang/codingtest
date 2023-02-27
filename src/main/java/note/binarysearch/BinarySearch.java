@@ -67,7 +67,7 @@ public class BinarySearch {
             // int형 범위가 넘어설 경우 중간 값 계산
             // mid = left + (right - left) / 2;
 
-            if (mid == target) {
+            if (arr[mid] == target) {
                 return mid;
             } else if (arr[mid] > target) {
                 right = mid - 1;
